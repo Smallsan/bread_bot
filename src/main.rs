@@ -11,7 +11,7 @@ struct Handler;
 #[async_trait]
 impl EventHandler for Handler {
     async fn message(&self, ctx: Context, msg: Message) {
-        if msg.content.contains("bread") {
+        if msg.content.contains("bread") && !msg.author.bot {
             match get_bread_image().await {
                 Ok(url) => {
                     if let Err(why) = msg.channel_id.say(&ctx.http, &url).await {
